@@ -17,7 +17,10 @@ def main():
 
 	os.system("npm run build")
 
-	delete_folder_content(portfolio_app_static_dir)
+	try:
+		delete_folder_content(portfolio_app_static_dir)
+	except Exception:
+		pass
 
 	copy_tree(react_app_build_dir, portfolio_app_static_dir)
 
