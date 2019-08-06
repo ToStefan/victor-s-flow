@@ -19,9 +19,9 @@ def main():
 
 	commit_push(react_app_dir)
 	
-	update_file(react_app_src_dir + "/config.js", local_config_js())
-
 	os.system("npm run build")
+
+	update_file(react_app_src_dir + "/config.js", local_config_js())
 
 	try:
 		delete_folder_content(portfolio_app_static_dir)

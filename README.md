@@ -5,8 +5,8 @@ Small CI/CD tool i use locally to automatically build, push, copy build, update 
 
   1) Update config.js with production properties
   2) Commit & Push front-end (React app)
-  3) Revert config.js for local development
-  4) Build react app
+  3) Build react app
+  4) Revert config.js for local development
   5) Delete content of static folder inside back-end (Java Spring Boot app)
   6) Copy build content in static folder of back-end
   7) Delete content of build folder
