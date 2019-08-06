@@ -4,16 +4,22 @@ import shutil
 from distutils.dir_util import copy_tree
 
 react_app_dir = "C:/Users/stefa/Documents/Workspaces/Portfolio/react-blog"
+react_app_src_dir = react_app_dir + "/src"
 react_app_build_dir = react_app_dir + "/build"
 
 portfolio_app_dir = "C:/Users/stefa/Documents/Workspaces/Portfolio/portfolio"
-portfolio_app_static_dir = portfolio_app_dir + "/src/main/resources/static"
+portfolio_app_resource_dir = portfolio_app_dir + "/src/main/resources"
+portfolio_app_static_dir = portfolio_app_resource_dir + "/static"
 
 commit_message = "stefantflc.me - generic commit message - there is an error on victor's flow"
 
 def main():
 
+	update_file(react_app_src_dir + "/config.js", heroku_config_js())
+
 	commit_push(react_app_dir)
+	
+	update_file(react_app_src_dir + "/config.js", local_config_js())
 
 	os.system("npm run build")
 
@@ -26,7 +32,16 @@ def main():
 
 	delete_folder_content(react_app_build_dir)
 
+	update_file(portfolio_app_resource_dir + "/application.yml", heroku_app_yml())
+
 	commit_push(portfolio_app_dir)
+
+	update_file(portfolio_app_resource_dir + "/application.yml", local_app_yml())
+
+def update_file(file_path, file_content):
+	f = open(file_path, "w")
+	f.write(file_content)
+	f.close()
 	
 def delete_folder_content(folder_path):
     shutil.rmtree(folder_path)
@@ -37,6 +52,28 @@ def commit_push(project):
 	os.system("Git add *")
 	os.system('Git commit -m "' + commit_message + '"')
 	os.system("Git push")
+
+def heroku_config_js():
+	return "const API_URL = \"http://www.stefantflc.me/api\";\n\n" + config_js_end()
+
+def local_config_js():
+	return "const API_URL = \"http://localhost:8080/api\";\n\n" + config_js_end()
+
+def config_js_end():
+	return "export {\n    API_URL\n}"
+
+def heroku_app_yml():
+	return app_yml_start() + "    url: ${SPRING_DATASOURCE_URL}\n    username: ${SPRING_DATASOURCE_USERNAME}\n" \
+		+ "    password: ${SPRING_DATASOURCE_PASSWORD}\n" + app_yml_end()
+
+def local_app_yml():
+	return app_yml_start() + "    url: jdbc:mysql://localhost:3306/stefantflcdb\n    username: root\n    password: root\n" + app_yml_end()
+
+def app_yml_start():
+	return "spring:\n  datasource:\n"
+
+def app_yml_end():
+	return "  jpa:\n    hibernate:\n      ddl-auto: update\nlogging:\n  level:\n    org:\n      hibernate:\n        SQL: debug"
 
 if __name__ == '__main__':
 	commit_message = sys.argv[1]
