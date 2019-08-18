@@ -60,7 +60,7 @@ def commit_push(project):
 
 # config.js
 def heroku_config_js():
-	return "const API_URL = \"http://www.stefantflc.me/api\";\n\n" + config_js_end()
+	return "const API_URL = \"https://www.stefantflc.me/api\";\n\n" + config_js_end()
 
 def local_config_js():
 	return "const API_URL = \"http://localhost:8080/api\";\n\n" + config_js_end()
@@ -87,7 +87,7 @@ def app_yml_end_heroku():
 
 # Constants.java
 def heroku_constants_java():
-	return constants_java("http://www.stefantflc.me")
+	return constants_java("https://www.stefantflc.me")
 
 def local_constants_java():
 	return constants_java("http://localhost:8080")
