@@ -8,7 +8,7 @@ Small CI/CD tool i use locally to automatically build, push, copy, update and de
   3) Build react app
   4) Revert config.js for local development
   5) Move build to static folder of back-end
-  6) Update application.yml with prodaction properties
+  6) Update application.yml with production properties
   7) Commit & Push back-end
   8) Revert application.yml for local development
   
