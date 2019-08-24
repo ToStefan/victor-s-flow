@@ -27,6 +27,7 @@ def production_update_application_yml():
 
 def commit_push_back_end(commit_message):
 	commit_push(back_end_app_dir, commit_message)
+	delete_folder_content(static_dir)
 
 def development_update_application_yml():
 	delete_move_file(application_yml_development_path, application_yml)
